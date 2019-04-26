@@ -8,16 +8,8 @@
 <script>
     import Detail from '@/components/questions/detail.vue'
     export default {
-        data() {
-            return {
-            }
-        },
         components:{
             Detail
-        },
-        created() {
-        },
-        methods: {
         }
     }
 </script>

@@ -25,8 +25,8 @@
           ></el-option>
         </el-select>
       </div>
-      <el-button type="primary" icon="el-icon-search" class="search">查询</el-button>
-      <el-button type="primary" icon="el-icon-search" class="search" @click="exportExcel">导出试卷</el-button>
+      <el-button type="primary" icon="el-icon-search" class="search" @click="searchFilter">查询</el-button>
+      <el-button type="primary" class="search" @click="exportExcel">导出试卷</el-button>
     </div>
 
     <div class="content">
@@ -111,6 +111,9 @@ export default {
     },
     handleSub(e) {
       this.subjectValue = e;
+    },
+    searchFilter(){
+
     },
     handleDetail(row) {
       //获取exam_exam_id的ID

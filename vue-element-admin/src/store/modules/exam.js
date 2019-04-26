@@ -31,7 +31,6 @@ const actions={
     //获取所有试题
     async getQuestionsType({commit},payload){
         let result = await getQuestionsType();
-        console.log(result,'result')
         commit('updata',{getQuestionsType:result.data})
     },
     //获取当前用户信息
@@ -46,9 +45,7 @@ const actions={
     },
     //条件查询
     async condition({commit},payload){
-        console.log(payload,'condition')
         let result = await condition(payload);
-        console.log(result,'conditions')
         commit('updata',{questions:result.data})
     },
     //更新试题
@@ -57,9 +54,7 @@ const actions={
     },
     //添加试题类型
     async addtype({commit},payload){
-        console.log(payload,'addtypeddddddddddddddddddddddd')
         let result = await addtype(payload);
-        console.log(result,'addtypessssssssssssssssssss')
     }
 
     //测试删除接口

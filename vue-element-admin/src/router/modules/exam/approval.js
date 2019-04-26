@@ -24,7 +24,8 @@ const examsRouter = {
       path: 'app_detail',
       component: () => import('@/views/exam/approval/app_detail'),
       name: 'app_detail',
-      hidden: true
+      hidden: true,
+      meta: { title: 'approvalclass', noCache: true ,view_id: "main-examPaperClassList"}
     }
   ]
 }

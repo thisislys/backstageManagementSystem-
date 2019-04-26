@@ -11,7 +11,7 @@
       >{{item}}</span>
     </div>
     <h2>{{tit}}</h2>
-    <el-table :data="data" style="width: 100%">
+    <el-table :data="data" style="width: 100%" v-if="idx">
       <el-table-column
         v-for="(item,index) in tits[idx]"
         :key="index"
@@ -19,6 +19,11 @@
         :label="tabNav[idx][index]"
         :style="{width:'100%'/tabNav[idx].length}"
       ></el-table-column>
+    </el-table>
+    <el-table v-else :data="data" style="width: 100%">
+      <el-table-column prop="user_name" label="用户名"  :width="('100%'-650)/2"></el-table-column>
+      <el-table-column prop="user_pwd" label="密码"  width="650"></el-table-column>
+      <el-table-column prop="identity_text" label="身份"  :width="('100%'-650)/2"></el-table-column>
     </el-table>
     <div class="pagination">
       <el-pagination
@@ -78,15 +83,15 @@ export default {
       ],
 
       dftPage: 1,
-      totals: 0,
-      totalTit: [
-        "userIdValue",
-        "identityIdValue",
-        "apiJurisdictionIdValue",
-        "identityApiAuthorityRelationsData",
-        "viewJurisdictionIdValue",
-        "existingViewValue"
-      ]
+      totals: 0
+      // totalTit: [
+      //   "userIdValue",
+      //   "identityIdValue",
+      //   "apiJurisdictionIdValue",
+      //   "identityApiAuthorityRelationsData",
+      //   "viewJurisdictionIdValue",
+      //   "existingViewValue"
+      // ]
     };
   },
 
@@ -95,23 +100,23 @@ export default {
       data: state => state.userShow.data,
       pageSize: state => state.userShow.pageSize,
       userData: state => state.userShow.userData,
-      userIdValue: state => state.userShow.userIdValue,
-      identityIdValue: state => state.userShow.identityIdValue,
-      apiJurisdictionIdValue: state => state.userShow.apiJurisdictionIdValue,
+      identitysData: state => state.userShow.identitysData,
+      apiAuthoritysData: state => state.userShow.apiAuthoritysData,
       identityApiAuthorityRelationsData: state =>
         state.userShow.identityApiAuthorityRelationsData,
-      viewJurisdictionIdValue: state => state.userShow.viewJurisdictionIdValue,
-      existingViewValue: state => state.userShow.existingViewValue
+      viewAuthoritysData: state => state.userShow.viewAuthoritysData,
+      identityViewAuthorityRelationsData: state =>
+        state.userShow.identityViewAuthorityRelationsData
     })
   },
- async created() {
-   await this.setUserData();
-   await this.setidentity();
-   await this.setApiAuthority();
-   await this.setIdentityApiAuthorityRelation();
-   await this.setViewAuthority();
-   await this.setidentityViewAuthorityRelation();
-    this.totals=this.userData.length
+  async created() {
+    await this.setUserData();
+    await this.setidentity();
+    await this.setApiAuthority();
+    await this.setIdentityApiAuthorityRelation();
+    await this.setViewAuthority();
+    await this.setidentityViewAuthorityRelation();
+    this.totals = this.userData.length;
   },
   methods: {
     ...mapActions({
@@ -139,7 +144,7 @@ export default {
       this.tableList({ idx, data: this.pageTit[idx], pages: 1 });
       this.idx = idx;
       this.tit = this.nav[idx];
-      this.totals = this[this.totalTit[this.idx]].length;
+      this.totals = this[this.pageTit[this.idx]].length;
     }
   }
 };

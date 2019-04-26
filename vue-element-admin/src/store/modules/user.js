@@ -38,7 +38,6 @@ const mutations = {
 
 const actions = {
   async user_user({commit},payload){
-    console.log(payload,'123')
       await user_gx(payload);
       let result = await getInfo();
       commit('userInfo',result.data)
@@ -54,7 +53,6 @@ const actions = {
   // get user info
   async getInfo({ commit, state },payload) {
     let result = await getInfo();
-    console.log('result...............',result)
     let data={...result.data,...payload}
     commit('userInfo',data)
     return data;
@@ -62,7 +60,6 @@ const actions = {
 
   async getViewAuthoritys({commit},payload){
     let getviewAuthority_s = await getviewAuthority({user_id:payload});
-    console.log(getviewAuthority_s,'asdas')
     if(getviewAuthority_s.code == 1){
       commit('viewAuthority',getviewAuthority_s.data)
       return getviewAuthority_s.data;

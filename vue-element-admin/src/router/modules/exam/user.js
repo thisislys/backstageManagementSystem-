@@ -24,7 +24,7 @@ const examsRouter = {
       path: 'userShow',
       component: () => import('@/views/exam/adduser/userShow'),
       name: 'userShow',
-      meta: { title: 'userdisplay', noCache: true }
+      meta: { title: 'userdisplay', noCache: true ,view_id:"main-showUser"}
     },
     // {
     //   path: 'headPortrait',

@@ -40,7 +40,7 @@ module.exports = {
       //     ['^' + process.env.VUE_APP_BASE_API]: ''
       //   }
         '/api':{
-          target: `http://169.254.12.55:7001/`,
+          target: `http://169.254.12.242:7001/`,
           changeOrigin: true,
           pathRewrite:{
             '/api':''

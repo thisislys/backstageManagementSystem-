@@ -8,16 +8,8 @@
 <script>
     import Detail from '@/components/approval/app_detail.vue' 
    export default {
-     data() {
-        return {
-        }
-   },
-   components:{
-        Detail
-   },
-   created(){
-   },
-   methods: {
+    components:{
+            Detail
     }
    }
 </script>

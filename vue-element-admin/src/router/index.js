@@ -77,7 +77,7 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: 'Additem',
+    redirect: 'Additem/add',
     children: [{
       path: 'add',
       component: () => import('@/views/exam/questions/add'),

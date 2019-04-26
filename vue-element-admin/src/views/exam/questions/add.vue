@@ -10,16 +10,8 @@
 <script>
     import Addque from '@/components/questions/addque.vue'
     export default {
-        data() {
-            return {
-            }
-        },
         components:{
             Addque
-        },
-        created() {
-        },
-        methods: {
         }
     }
 </script>

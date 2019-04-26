@@ -1,22 +1,40 @@
 <template>
     <div class="box">
-        <p>出题人:<span>{{list.user_name}}</span></p>
-        <p>题目信息</p>
-        <div class="title_list">
-            <span>{{list.questions_type_text}}</span>
-            <span>{{list.subject_text}}</span>
-            <span>{{list.exam_name}}</span>
+        <div class="left">
+            <p class="title">出题人:<span>{{list.user_name}}</span></p>
+            <p>题目信息</p>
+            <div class="title_list">
+                <span>{{list.questions_type_text}}</span>
+                <span>{{list.subject_text}}</span>
+                <span>{{list.exam_name}}</span>
+            </div>
+            <pre>{{list.title}}</pre>
+            <textarea 
+                id="text-input" 
+                oninput="this.editor.update()"
+                rows="6" 
+                cols="60"
+            >
+            {{list.questions_stem}}
+            </textarea>
         </div>
-        <pre>{{list.title}}</pre>
-        <markdown-editor :value='list.questions_stem' />
+        <div class="right">
+            <p>答案信息</p>
+            <textarea 
+            id="text-inputs" 
+            oninput="this.editor.update()"
+            rows="6" 
+            cols="60"
+        >
+        {{list.questions_answer}}
+        </textarea>
+        </div>
     </div>
 </template>
 <script>
-    import MarkdownEditor from '@/components/MarkdownEditor'
+    var markdown = require( "markdown" ).markdown;
     import { mapState, mapActions } from 'vuex'
     export default {
-        name: 'MarkdownDemo',
-        components: { MarkdownEditor },
         data() {
             return {
                 questions_id: '',
@@ -56,9 +74,8 @@
     .box {
         width: 100%;
         display: flex;
-        flex-direction: column;
         .left {
-            width: 60%;
+            width: 70%;
             background: #fff;
             margin-right: 1.5%;
             box-sizing: border-box;
@@ -72,7 +89,7 @@
         }
 
         .right {
-            width: 40%;
+            width: 30%;
             background: #fff;
             border-radius: 10px;
             padding: 2%;
@@ -118,5 +135,26 @@
         max-height: 500px;
         overflow: hidden;
         overflow-y: scroll;
+    }
+    #text-input{
+        width: 100%;
+        height: 450px;
+        border: 0;
+        outline: none;
+        color: #595959;
+        font-size: 14px;
+    }
+    #text-inputs{
+        width: 100%;
+        height: 450px;
+        border: 0;
+        outline: none;
+        color: #595959;
+        margin-top: 15%;
+        font-size: 14px;
+    }
+    .title{
+        font-size: 14px;
+        color: #595959;
     }
 </style>

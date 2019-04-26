@@ -206,8 +206,7 @@ export default {
       margin-left: 40px;
       margin-top: 20px;
     }
-    .datatime {
-    }
+   
   }
 }
 </style>

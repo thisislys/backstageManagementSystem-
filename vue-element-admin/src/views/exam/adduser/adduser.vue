@@ -12,7 +12,7 @@
           <el-input v-model="pwd" placeholder="请输入密码" show-password></el-input>
           <el-select v-model="identityId" placeholder="请选择身份id">
             <el-option
-              v-for="(item,index) in identityIdValue"
+              v-for="(item,index) in identitysData"
               :key="index"
               :label="item.identity_text"
               :value="item.identity_text"
@@ -22,7 +22,7 @@
         <div v-if="idx===1">
           <el-select v-model="userId" placeholder="请选择用户id">
             <el-option
-              v-for="(item,index) in userIdValue"
+              v-for="(item,index) in userData"
               :key="index"
               :label="item.user_name"
               :value="item.user_name"
@@ -32,7 +32,7 @@
           <el-input v-model="pwd" placeholder="请输入密码" show-password></el-input>
           <el-select v-model="identityId" placeholder="请选择身份id">
             <el-option
-              v-for="(item,index) in identityIdValue"
+              v-for="(item,index) in identitysData"
               :key="index"
               :label="item.identity_text"
               :value="item.identity_text"
@@ -71,14 +71,18 @@
         <p>
           <span>添加视图接口权限</span>
         </p>
-        <el-select v-model="existingView" placeholder="请选择已有视图">
-          <el-option
-            v-for="(item,index) in existingViewValue"
-            :key="index"
-            :label="item.authority"
-            :value="item.authority"
-          ></el-option>
-        </el-select>
+
+        <div>
+          <el-select v-model="existingView" placeholder="请选择已有视图">
+            <el-option
+              v-for="(item,index) in identityViewAuthorityRelationsData"
+              :key="index"
+              :label="item.view_authority_text"
+              :value="item.view_authority_text"
+            ></el-option>
+          </el-select>
+         
+        </div>
         <div class="btn">
           <el-button type="primary" @click="view">确定</el-button>
           <el-button plain @click="reset(4)">重置</el-button>
@@ -92,7 +96,7 @@
         <div>
           <el-select v-model="identityId2" placeholder="请选择身份id">
             <el-option
-              v-for="(item,index) in identityIdValue"
+              v-for="(item,index) in identitysData"
               :key="index"
               :label="item.identity_text"
               :value="item.identity_text"
@@ -102,7 +106,7 @@
         <div>
           <el-select v-model="apiJurisdictionId" placeholder="请选择api接口权限id">
             <el-option
-              v-for="(item,index) in apiJurisdictionIdValue"
+              v-for="(item,index) in apiAuthoritysData"
               :key="index"
               :label="item.api_authority_text"
               :value="item.api_authority_text"
@@ -121,7 +125,7 @@
         <div>
           <el-select v-model="identityId3" placeholder="请选择身份id">
             <el-option
-              v-for="(item,index) in identityIdValue"
+              v-for="(item,index) in identitysData"
               :key="index"
               :label="item.identity_text"
               :value="item.identity_text"
@@ -131,7 +135,7 @@
         <div>
           <el-select v-model="viewJurisdictionId" placeholder="请选择视图权限id">
             <el-option
-              v-for="(item,index) in viewJurisdictionIdValue"
+              v-for="(item,index) in viewAuthoritysData"
               :key="index"
               :label="item.view_authority_text"
               :value="item.view_authority_text"
@@ -171,11 +175,12 @@ export default {
   },
   computed: {
     ...mapState({
-      existingViewValue: state => state.userShow.existingViewValue, //已有视图值
-      apiJurisdictionIdValue: state => state.userShow.apiJurisdictionIdValue, //api接口权限id值
-      viewJurisdictionIdValue: state => state.userShow.viewJurisdictionIdValue, //视图权限id值
-      identityIdValue: state => state.userShow.identityIdValue, //身份id值
-      userIdValue: state => state.userShow.userIdValue, //用户id值
+      identityViewAuthorityRelationsData: state =>
+        state.userShow.identityViewAuthorityRelationsData, //已有视图值
+      apiAuthoritysData: state => state.userShow.apiAuthoritysData, //api接口权限数据
+      viewAuthoritysData: state => state.userShow.viewAuthoritysData, //视图权限数据
+      identitysData: state => state.userShow.identitysData, //身份数据
+      userData: state => state.userShow.userData, //用户数据
       code: state => state.userManagement.code, //code
       msg: state => state.userManagement.msg //msg
     })
@@ -227,10 +232,10 @@ export default {
     async user() {
       let obj = {},
         obj1 = {};
-      obj = this.identityIdValue.find(item => {
+      obj = this.identitysData.find(item => {
         return item.identity_text === this.identityId;
       });
-      obj1 = this.userIdValue.find(item => {
+      obj1 = this.userData.find(item => {
         return item.user_name === this.userId;
       });
       if (this.idx === 0) {
@@ -331,8 +336,8 @@ export default {
     //视图接口权限
     async view() {
       let obj = {};
-      obj = this.existingViewValue.find(item => {
-        return item.authority === this.existingView;
+      obj = this.identityViewAuthorityRelationsData.find(item => {
+        return item.view_authority_text === this.existingView;
       });
       if (!this.existingView) {
         this.$message({
@@ -344,7 +349,7 @@ export default {
       }
       await this.setAddAuthorityView({
         view_authority_text: this.existingView,
-        view_id: obj.view_id //视图id 字符串
+        view_id: obj.view_id 
       });
       this.hint();
     },
@@ -352,10 +357,10 @@ export default {
     async api() {
       let obj = {},
         obj1 = {};
-      obj = this.identityIdValue.find(item => {
+      obj = this.identitysData.find(item => {
         return item.identity_text === this.identityId2;
       });
-      obj1 = this.apiJurisdictionIdValue.find(item => {
+      obj1 = this.apiAuthoritysData.find(item => {
         return item.api_authority_text === this.apiJurisdictionId;
       });
       if (!this.identityId2) {
@@ -384,10 +389,10 @@ export default {
     async set() {
       let obj = {},
         obj1 = {};
-      obj = this.identityIdValue.find(item => {
+      obj = this.identitysData.find(item => {
         return item.identity_text === this.identityId3;
       });
-      obj1 = this.viewJurisdictionIdValue.find(item => {
+      obj1 = this.viewAuthoritysData.find(item => {
         return item.view_authority_text === this.viewJurisdictionId;
       });
       if (!this.identityId3) {
@@ -428,11 +433,11 @@ export default {
     },
   },
   async created() {
-   await this.setUserData();
-   await this.setidentity();
-   await this.setApiAuthority();
-   await this.setViewAuthority();
-   await this.setidentityViewAuthorityRelation();
+    await this.setidentityViewAuthorityRelation();
+    await this.setUserData();
+    await this.setidentity();
+    await this.setApiAuthority();
+    await this.setViewAuthority();
   }
 };
 </script>

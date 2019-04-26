@@ -19,7 +19,6 @@ function hasPermission(view_ids, route) {
  * @param roles
  */
 export function filterAsyncRoutes(routes, view_ids) {
-  console.log(routes,'view_idsview_idsview_ids')
   const res = []
   routes.forEach(route => {
     const tmp = { ...route }
@@ -65,7 +64,6 @@ const actions = {
   },
   async usernews({commit},payload){
     let res = await usernew(payload);
-    console.log(res,'asdasd')
     commit('USER_NEW',res)
     return res.data;
   }
